@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Button, FormGroup, Input, Label} from 'reactstrap';
 import Popup from "../../loc/Popup";
 
-class GroupEditPopup extends Component {
+class GroupEditModal extends Component {
 
     emptyItem = {
         name: ''
@@ -84,4 +84,4 @@ class GroupEditPopup extends Component {
     }
 }
 
-export default GroupEditPopup;
+export default GroupEditModal;

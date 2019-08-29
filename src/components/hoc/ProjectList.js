@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import AppNavbar from "./AppNavbar";
 import Project from "../loc/Project";
 import EditDeleteButtonGroup from "../loc/EditDeleteButtonGroup";
-import ProjectEditPopup from "./formModals/ProjectEditPopup";
+import ProjectEditModal from "./formModals/ProjectEditModal";
 import TablePage from "../loc/TablePage";
 import {Button} from "reactstrap";
 
@@ -115,7 +115,7 @@ class ProjectList extends Component {
                 tableBody={projectList}
                 popup={
                     (show) ?
-                    <ProjectEditPopup
+                    <ProjectEditModal
                         projectId={this.state.projectId}
                         cancelOnClick={this.toggleShow}
                     />

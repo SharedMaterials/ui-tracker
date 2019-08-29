@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Popup from "../../loc/Popup";
 import {Button, FormGroup, Input, Label} from "reactstrap";
 
-class ProjectEditPopup extends Component {
+class ProjectEditModal extends Component {
 
     emptyItem = {
         title:'',
@@ -96,4 +96,4 @@ class ProjectEditPopup extends Component {
     }
 }
 
-export default ProjectEditPopup;
+export default ProjectEditModal;

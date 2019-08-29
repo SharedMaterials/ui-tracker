@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AppNavbar from './AppNavbar';
 import Employee from '../loc/Employee';
 import EditDeleteButtonGroup from "../loc/EditDeleteButtonGroup";
-import EmployeeEditPopup from "./formModals/EmployeeEditPopup";
+import EmployeeEditModal from "./formModals/EmployeeEditModal";
 import TablePage from "../loc/TablePage";
 import {Button} from "reactstrap";
 
@@ -108,7 +108,7 @@ class EmployeeList extends Component {
                 tableBody={employeeList}
                 popup={
                     (show) ?
-                    <EmployeeEditPopup employeeId={this.state.employeeId} cancelOnClick={this.toggleShow}/>
+                    <EmployeeEditModal employeeId={this.state.employeeId} cancelOnClick={this.toggleShow}/>
                     : null
                 }
             />

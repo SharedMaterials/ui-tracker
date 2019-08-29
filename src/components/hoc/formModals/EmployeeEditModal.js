@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, FormGroup, Input, Label } from 'reactstrap';
 import Popup from "../../loc/Popup";
 
-class EmployeeEditPopup extends Component {
+class EmployeeEditModal extends Component {
 
     emptyItem = {
         name: '',
@@ -100,4 +100,4 @@ class EmployeeEditPopup extends Component {
     }
 }
 
-export default EmployeeEditPopup;
+export default EmployeeEditModal;

@@ -6,7 +6,7 @@ import {
 } from 'reactstrap';
 import Popup from "../../loc/Popup";
 
-class AddMemberPopup extends Component {
+class AddMemberModal extends Component {
 
     constructor(props) {
 
@@ -112,4 +112,4 @@ class AddMemberPopup extends Component {
     }
 }
 
-export default AddMemberPopup;
+export default AddMemberModal;

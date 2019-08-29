@@ -3,7 +3,7 @@ import AppNavbar from './AppNavbar';
 import {Link} from 'react-router-dom';
 import {Button, ButtonGroup} from 'reactstrap';
 import Employee from "../loc/Employee";
-import AddMemberPopup from "./formModals/AddMemberPopup";
+import AddMemberModal from "./formModals/AddMemberModal";
 import TablePage from "../loc/TablePage";
 
 class EmployeeGroupSearch extends Component {
@@ -113,7 +113,7 @@ class EmployeeGroupSearch extends Component {
                 tableBody={employeeList}
                 popup={
                     (show) ?
-                        <AddMemberPopup groupId={this.props.match.params.id} cancelOnClick={this.toggleShow}/>
+                        <AddMemberModal groupId={this.props.match.params.id} cancelOnClick={this.toggleShow}/>
                         : null
                 }
             />

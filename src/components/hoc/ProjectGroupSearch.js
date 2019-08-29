@@ -4,7 +4,7 @@ import Project from "../loc/Project";
 import {Button, ButtonGroup} from "reactstrap";
 import TablePage from "../loc/TablePage";
 import {Link} from "react-router-dom";
-import AssignProjectPopup from "./formModals/AssignProjectPopup";
+import AssignProjectPopup from "./formModals/AssignProjectModal";
 
 class ProjectGroupSearch extends Component {
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AppNavbar from './AppNavbar';
 import Group from '../loc/Group';
 import EditDeleteButtonGroup from "../loc/EditDeleteButtonGroup";
-import GroupEditPopup from "./formModals/GroupEditPopup";
+import GroupEditModal from "./formModals/GroupEditModal";
 import TablePage from "../loc/TablePage";
 import {Button} from "reactstrap";
 
@@ -107,7 +107,7 @@ class GroupList extends Component {
                 tableBody={groupList}
                 popup={
                     (show) ?
-                    <GroupEditPopup groupId={this.state.groupId} cancelOnClick={this.toggleShow} />
+                    <GroupEditModal groupId={this.state.groupId} cancelOnClick={this.toggleShow} />
                     : null
                 }
             />
