@@ -1,58 +1,27 @@
-import React, {Component} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-    Button,
-     Dropdown, DropdownItem, DropdownMenu, DropdownToggle,
+    Dropdown, DropdownItem, DropdownMenu, DropdownToggle,
     FormGroup
 } from 'reactstrap';
-import Popup from "../../loc/Popup";
+import ModalTemplate from "../../loc/ModalTemplate";
 
-class AddMemberModal extends Component {
+export default function AddMemberModal(props) {
+    const [isLoading, setLoading] = useState(true);
+    const [employees, setEmployees] = useState([]);
+    const [emptyResponse, setEmptyResponse] = useState(true);
+    const [chosenEmployeeId, setChosenEmployee] = useState('');
+    const [dropdownOpen, setOpen] = useState(false);
+    const [dropDownValue, setDropDownValue] = useState("Select Member");
 
-    constructor(props) {
-
-        super(props);
-        this.state = {
-            groupId: this.props.groupId,
-            isLoading: true,
-            employees: [],
-            emptyResponse: true,
-            chosenEmployeeId: '',
-            dropdownOpen: false,
-            dropDownValue: "Select Member"
-        }
-        this.toggle = this.toggle.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-
+    function toggleDropdown() {
+        setOpen(!dropdownOpen);
     }
 
-    componentDidMount() {
-
-        this.setState({isLoading: true});
-        const url = `/api/employees/search/group/0`;
-        fetch(url).then(response => {
-            if (response.status === 200) {
-                this.setState({emptyResponse: false});
-                return response.json();
-            } else {
-                this.setState({emptyResponse: true});
-                return [];
-            }
-        }).then(data => this.setState({isLoading: false, employees: data}));
-    }
-
-    toggle() {
-        this.setState(prevState => ({
-            dropdownOpen: !prevState.dropdownOpen
-        }));
-    }
-
-    async handleSubmit(event) {
-
+    async function handleSubmit(event) {
         event.preventDefault();
-        const localState = this.state;
 
-        if (localState.chosenEmployeeId) {
-            const url = `/api/group/${localState.groupId}/employee/${localState.chosenEmployeeId}`;
+        if (chosenEmployeeId) {
+            const url = `/api/group/${props.groupId}/employee/${chosenEmployeeId}`;
             await fetch(url, {
                 method: 'PUT',
                 headers: {
@@ -60,37 +29,52 @@ class AddMemberModal extends Component {
                     'Content-Type': 'application/json'
                 }
             });
-            this.props.cancelOnClick();
+            props.toggle();
         } else {
             alert("No valid employee selected");
         }
     }
 
-    render() {
-        const localState = this.state;
+    useEffect(() => {
+        setLoading(true);
 
-        if (localState.isLoading) {
-            return <p>Loading...</p>
-        }
+        const url = `/api/employees/search/group/0`;
+        fetch(url).then(response => {
+            if (response.status === 200) {
+                setEmptyResponse(false);
+                return response.json();
+            } else {
+                setEmptyResponse(true);
+                return [];
+            }
+        }).then(data => {
+            setEmployees(data);
+            setLoading(false);
+        });
+    },[]);
 
-        const employeeList = (localState.emptyResponse) ? <option disabled>No Available Employees</option>
-            : localState.employees.map(employee =>
-                <DropdownItem key={employee.employeeId}
-                              onClick={() => {
-                                  this.setState({chosenEmployeeId: employee.employeeId, dropDownValue: employee.name})
-                              }}>
-                    {employee.name}
-                </DropdownItem>
-            );
+    const employeeList = (emptyResponse) ? <option disabled>No Available Employees</option>
+        : employees.map(employee =>
+            <DropdownItem key={employee.employeeId}
+                          onClick={() => {
+                              setChosenEmployee(employee.employeeId);
+                              setDropDownValue(employee.name);
+                          }}>
+                {employee.name}
+            </DropdownItem>
+        );
 
-        return (
-            <Popup
-                header={<h3>Add Member</h3>}
+    return (
+        <>
+            <ModalTemplate
+                show={props.show}
+                toggle={props.toggle}
+                title={"Add Member"}
                 body={
                     <FormGroup align="center">
-                        <Dropdown color="success" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                        <Dropdown color="success" isOpen={dropdownOpen} toggle={toggleDropdown}>
                             <DropdownToggle caret color="success">
-                                {this.state.dropDownValue}
+                                {dropDownValue}
                             </DropdownToggle>
                             <DropdownMenu>
                                 <DropdownItem header>Employees</DropdownItem>
@@ -99,17 +83,9 @@ class AddMemberModal extends Component {
                         </Dropdown>
                     </FormGroup>
                 }
-                footer={
-                    <FormGroup className="float-right">
-                        <Button color="success" type="submit">Save</Button>
-                        {' '}
-                        <Button color="secondary" onClick={this.props.cancelOnClick}>Cancel</Button>
-                    </FormGroup>
-                }
-                handleSubmit={this.handleSubmit}
+                submit={handleSubmit}
             />
-        );
-    }
+        </>
+    );
 }
 
-export default AddMemberModal;

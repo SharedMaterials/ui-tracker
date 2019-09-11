@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Button, FormGroup, Input, Label} from 'reactstrap';
-import Popup from "../../loc/Popup";
+import {FormGroup, Input, Label} from 'reactstrap';
+import ModalTemplate from "../../loc/ModalTemplate";
 
 class GroupEditModal extends Component {
 
@@ -51,35 +51,30 @@ class GroupEditModal extends Component {
                 },
                 body: JSON.stringify(item),
             });
-            this.props.cancelOnClick();
+            this.props.toggle();
         }
     }
 
     render() {
         const {item} = this.state;
-        let title = <h3>{(item.groupId !== 'new' && item.groupId !== undefined) ? "Edit " : "Add "}Group</h3>;
+        let title = (item.groupId !== 'new' && item.groupId !== undefined) ? "Edit " : "Add ";
 
         return (
-            <Popup
-                header={
-                    title
-                }
-                body={
-                    <FormGroup>
-                        <Label for="name">Name</Label>
-                        <Input type="text" name="name" id="name" value={item.name || ''}
-                               onChange={this.handleChange} autoComplete="name"/>
-                    </FormGroup>
-                }
-                footer={<FormGroup
-                    className="float-right">
-                    <Button color="success" type="submit">Save</Button>
-                    {' '}
-                    <Button color="secondary" onClick={this.props.cancelOnClick}>Cancel</Button>
-                </FormGroup>
-                }
-                handleSubmit={this.handleSubmit}
-            />
+            <>
+                <ModalTemplate
+                    show={this.props.show}
+                    toggle={this.props.toggle}
+                    title={title + "Group"}
+                    body={
+                        <FormGroup>
+                            <Label for="name">Name</Label>
+                            <Input type="text" name="name" id="name" value={item.name || ''}
+                                   onChange={this.handleChange} autoComplete="name"/>
+                        </FormGroup>
+                    }
+                    submit={this.handleSubmit}
+                />
+            </>
         );
     }
 }

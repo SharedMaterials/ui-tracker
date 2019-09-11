@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Button, FormGroup, Input, Label } from 'reactstrap';
-import Popup from "../../loc/Popup";
+import {FormGroup, Input, Label} from 'reactstrap';
+import ModalTemplate from "../../loc/ModalTemplate";
 
 class EmployeeEditModal extends Component {
 
@@ -56,46 +56,43 @@ class EmployeeEditModal extends Component {
                 },
                 body: JSON.stringify(item)
             });
-            this.props.cancelOnClick();
+            this.props.toggle();
         }
     }
 
     render(){
 
         const {item} = this.state;
-        let title = <h3>{(item.employeeId !== 'new' && item.employeeId !== undefined) ? "Edit " : "Add "}Employee</h3>
+        let title = (item.employeeId !== 'new' && item.employeeId !== undefined) ? "Edit " : "Add ";
 
         return (
-            <Popup
-                header={title}
-                body={
-                    <React.Fragment>
-                        <FormGroup>
-                            <Label for="name">Name</Label>
-                            <Input type="text" name="name" id="name" value={item.name || ''}
-                                   onChange={this.handleChange} autoComplete="name"/>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="position">Position</Label>
-                            <Input type="text" name="position" id="position" value={item.position || ''}
-                                   onChange={this.handleChange} autoComplete="position"/>
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="email">Email</Label>
-                            <Input type="email" name="email" id="email" value={item.email || ''}
-                                   onChange={this.handleChange} autoComplete="email"/>
-                        </FormGroup>
-                    </React.Fragment>
-                }
-                footer={
-                    <FormGroup className="float-right">
-                        <Button color="success" type="submit">Save</Button>
-                        {' '}
-                        <Button color="secondary" onClick={this.props.cancelOnClick}>Cancel</Button>
-                    </FormGroup>
-                }
-                handleSubmit={this.handleSubmit}
+            <>
+                <ModalTemplate
+                    show={this.props.show}
+                    toggle={this.props.toggle}
+                    title={title + "Employee"}
+                    body={
+                        <>
+                            <FormGroup>
+                                <Label for="name">Name</Label>
+                                <Input type="text" name="name" id="name" value={item.name || ''}
+                                       onChange={this.handleChange} autoComplete="name"/>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="position">Position</Label>
+                                <Input type="text" name="position" id="position" value={item.position || ''}
+                                       onChange={this.handleChange} autoComplete="position"/>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label for="email">Email</Label>
+                                <Input type="email" name="email" id="email" value={item.email || ''}
+                                       onChange={this.handleChange} autoComplete="email"/>
+                            </FormGroup>
+                        </>
+                    }
+                    submit={this.handleSubmit}
                 />
+            </>
         );
     }
 }

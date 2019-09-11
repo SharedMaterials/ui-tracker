@@ -56,9 +56,6 @@
 .navbar .navbar-link:hover {
     color: #ffffff;
 }
-.active{
-    text-decoration: underline;
-}
 
 @media (max-width: 575px) {
     .navbar-expand-sm .navbar-nav .show .dropdown-menu .dropdown-item {

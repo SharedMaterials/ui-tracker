@@ -1,12 +1,10 @@
 import React from 'react';
-import AppNavbar from "../hoc/AppNavbar";
 import {Container, Table} from 'reactstrap';
 
-const TablePage = (props) => {
-    return <div>
-        <AppNavbar activeLink={props.activeLink}/>
+export default function TablePage(props) {
+    return (
         <Container fluid>
-            {props.popup}
+            {props.modal}
             {props.titleRow}
             <Table className="mt-4" style={{whiteSpace: 'nowrap'}} responsive>
                 <thead>
@@ -17,7 +15,5 @@ const TablePage = (props) => {
                 </tbody>
             </Table>
         </Container>
-    </div>
-}
-
-export default TablePage;
+    );
+};

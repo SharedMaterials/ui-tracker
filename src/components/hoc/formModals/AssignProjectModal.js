@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import {
-    Button,
     Dropdown, DropdownItem, DropdownMenu, DropdownToggle,
     FormGroup
 } from 'reactstrap';
-import Popup from "../../loc/Popup";
+import ModalTemplate from "../../loc/ModalTemplate";
 
 class AssignProjectPopup extends Component {
 
@@ -20,7 +19,7 @@ class AssignProjectPopup extends Component {
             dropdownOpen: false,
             dropDownValue: "Select Project"
         }
-        this.toggle = this.toggle.bind(this);
+        this.toggleDropdown = this.toggleDropdown.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
     }
@@ -40,7 +39,7 @@ class AssignProjectPopup extends Component {
         }).then(data => this.setState({isLoading: false, projects: data}));
     }
 
-    toggle() {
+    toggleDropdown() {
         this.setState(prevState => ({
             dropdownOpen: !prevState.dropdownOpen
         }));
@@ -60,7 +59,7 @@ class AssignProjectPopup extends Component {
                     'Content-Type': 'application/json'
                 }
             });
-            this.props.cancelOnClick();
+            this.props.toggle();
         } else {
             alert("No unassigned projects selected");
         }
@@ -84,30 +83,27 @@ class AssignProjectPopup extends Component {
             );
 
         return (
-            <Popup
-                header={<h3>Assign Project</h3>}
-                body={
-                    <FormGroup align="center">
-                        <Dropdown color="success" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                            <DropdownToggle caret color="success">
-                                {this.state.dropDownValue}
-                            </DropdownToggle>
-                            <DropdownMenu>
-                                <DropdownItem header>Projects</DropdownItem>
-                                {projectList}
-                            </DropdownMenu>
-                        </Dropdown>
-                    </FormGroup>
-                }
-                footer={
-                    <FormGroup className="float-right">
-                        <Button color="success" type="submit">Save</Button>
-                        {' '}
-                        <Button color="secondary" onClick={this.props.cancelOnClick}>Cancel</Button>
-                    </FormGroup>
-                }
-                handleSubmit={this.handleSubmit}
-            />
+            <>
+                <ModalTemplate
+                    show={this.props.show}
+                    toggle={this.props.toggle}
+                    title={"Assign Project"}
+                    body={
+                        <FormGroup align="center">
+                            <Dropdown color="success" isOpen={this.state.dropdownOpen} toggle={this.toggleDropdown}>
+                                <DropdownToggle caret color="success">
+                                    {this.state.dropDownValue}
+                                </DropdownToggle>
+                                <DropdownMenu>
+                                    <DropdownItem header>Projects</DropdownItem>
+                                    {projectList}
+                                </DropdownMenu>
+                            </Dropdown>
+                        </FormGroup>
+                    }
+                    submit={this.handleSubmit}
+                />
+            </>
         );
     }
 }

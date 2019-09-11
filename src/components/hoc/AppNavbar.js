@@ -1,35 +1,33 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import React, {useState} from 'react';
+import { Link, NavLink as RRNavLink } from 'react-router-dom';
+import {Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink} from 'reactstrap';
 
-export default class AppNavbar extends Component {
-    constructor(props){
-        super(props);
-        this.state = {isOpen: false};
-        this.toggle = this.toggle.bind(this);
+export default function AppNavbar(props) {
+    const [isOpen, setOpen] = useState(false);
+
+    function toggle() {
+        setOpen(!isOpen);
     }
 
-    toggle(){
-        this.setState({isOpen: !this.state.isOpen});
-    }
-
-    render() {
-        return <Navbar dark expand="md" width="100%">
+    return(
+    <div>
+        <Navbar dark expand="md" width="100%">
             <NavbarBrand tag={Link} to="/">Tracker</NavbarBrand>
-            <NavbarToggler onClick={this.toggle}/>
-            <Collapse isOpen={this.state.isOpen} navbar>
+            <NavbarToggler onClick={toggle}/>
+            <Collapse isOpen={isOpen} navbar>
                 <Nav className="ml-auto" navbar>
                     <NavItem>
-                        <NavLink href="/groups" className={(this.props.activeLink === 'groups')?'active':''}>Groups</NavLink>
+                        <NavLink tag={RRNavLink} to="/groups">Groups</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="/employees" className={(this.props.activeLink === 'employees')?'active':''}>Employees</NavLink>
+                        <NavLink tag={RRNavLink} to="/employees">Employees</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="/projects" className={(this.props.activeLink === 'projects')?'active':''}>Projects</NavLink>
+                        <NavLink tag={RRNavLink} to="/projects">Projects</NavLink>
                     </NavItem>
                 </Nav>
             </Collapse>
-        </Navbar>;
-    }
+        </Navbar>
+        {props.children}
+    </div>);
 }
