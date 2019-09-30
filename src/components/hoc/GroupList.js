@@ -66,7 +66,7 @@ export default function GroupList() {
         return <div><p>Loading...</p></div>
     }
 
-    const groupList = (emptyResponse) ? <tr><td colSpan="4" align="center">No groups found</td></tr>
+    const groupList = (emptyResponse) ? <tr><td colSpan="4" style={{textAlign: "center"}}>No groups found</td></tr>
         : groups.map(group => {
             return <tr key={group.groupId}>
                 <Group name={group.name} groupId={group.groupId}/>
@@ -82,7 +82,7 @@ export default function GroupList() {
                     <div className="float-right">
                         <Button color="success" onClick={() => toggleShow('new')}>+Add Group</Button>
                     </div>
-                    <h3 align="center">Groups</h3>
+                    <h3 style={{textAlign: "center"}}>Groups</h3>
                 </>
             }
             tableHeader={

@@ -64,7 +64,7 @@ export default function EmployeeList() {
         return <div><p>Loading...</p></div>
     }
 
-    const employeeList = (emptyResponse) ? <tr><td colSpan="4" align="center">No employees found</td></tr>
+    const employeeList = (emptyResponse) ? <tr><td colSpan="4" style={{textAlign: "center"}}> No employees found </td></tr>
         : employees.map(employee => {
             return <tr key={employee.employeeId}>
                 <Employee name={employee.name} position={employee.position} email={employee.email}/>
@@ -80,7 +80,7 @@ export default function EmployeeList() {
                     <div className="float-right">
                         <Button color="success" onClick={() => toggleShow('new')}>+Add Employee</Button>
                     </div>
-                    <h3 align="center">Employees</h3>
+                    <h3 style={{textAlign: "center"}}>Employees</h3>
                 </>
             }
             tableHeader={

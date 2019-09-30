@@ -64,14 +64,14 @@ export default function AddMemberModal(props) {
             </DropdownItem>
         );
 
-    return (
+    return ((isLoading) ? <p>Loading...</p> :
         <>
             <ModalTemplate
                 show={props.show}
                 toggle={props.toggle}
                 title={"Add Member"}
                 body={
-                    <FormGroup align="center">
+                    <FormGroup style={{textAlign: "center"}}>
                         <Dropdown color="success" isOpen={dropdownOpen} toggle={toggleDropdown}>
                             <DropdownToggle caret color="success">
                                 {dropDownValue}

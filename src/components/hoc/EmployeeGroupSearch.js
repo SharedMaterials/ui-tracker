@@ -63,7 +63,7 @@ export default function EmployeeGroupSearch(props){
         return <div><p>Loading...</p></div>
     }
 
-    const employeeList = (emptyResponse) ? <tr><td colSpan="4" align="center">No Members found for this Group</td></tr>
+    const employeeList = (emptyResponse) ? <tr><td colSpan="4" style={{textAlign: "center"}}>No Members found for this Group</td></tr>
         : employees.map(employee => {
             return <tr key={employee.employeeId}>
                 <Employee name={employee.name} position={employee.position} email={employee.email}/>
@@ -86,7 +86,7 @@ export default function EmployeeGroupSearch(props){
                     <div className={"float-left"}>
                         <Link to="/groups">&lsaquo; Groups</Link>
                     </div>
-                    <h3 align="center">Members</h3>
+                    <h3 style={{textAlign: "center"}}>Members</h3>
                 </>
             }
             tableHeader={

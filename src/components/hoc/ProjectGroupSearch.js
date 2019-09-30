@@ -61,7 +61,7 @@ export default function ProjectGroupSearch(props) {
         return <div><p>Loading...</p></div>
     }
 
-    const projectList = (emptyResponse) ? <tr><td colSpan="4" align="center">No Projects found for this Group</td></tr>
+    const projectList = (emptyResponse) ? <tr><td colSpan="4" style={{textAlign: "center"}}>No Projects found for this Group</td></tr>
         : projects.map(project => {
             return <tr key={project.projectId}>
                 <Project
@@ -89,7 +89,7 @@ export default function ProjectGroupSearch(props) {
                     <div className={"float-left"}>
                         <Link to="/groups">&lsaquo; Groups</Link>
                     </div>
-                    <h3 align="center">Assigned</h3>
+                    <h3 style={{textAlign: "center"}}>Assigned</h3>
                 </>
             }
             tableHeader={

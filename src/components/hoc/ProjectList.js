@@ -65,7 +65,7 @@ export default function ProjectList() {
         return <div><p>Loading...</p></div>
     }
 
-    const projectList = (emptyResponse) ? <tr><td colSpan="4" align="center">No projects found</td></tr>
+    const projectList = (emptyResponse) ? <tr><td colSpan="4" style={{textAlign: "center"}}>No projects found</td></tr>
         : projects.map(project => {
             return(
             <tr key={project.projectId}>
@@ -90,7 +90,7 @@ export default function ProjectList() {
                     <div className="float-right">
                         <Button color="success" onClick={() => toggleShow('new')}>+Add Project</Button>
                     </div>
-                    <h3 align="center">Projects</h3>
+                    <h3 style={{textAlign: "center"}}>Projects</h3>
                 </>
             }
             tableHeader={

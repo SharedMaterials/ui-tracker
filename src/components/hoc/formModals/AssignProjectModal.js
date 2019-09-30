@@ -89,7 +89,7 @@ class AssignProjectPopup extends Component {
                     toggle={this.props.toggle}
                     title={"Assign Project"}
                     body={
-                        <FormGroup align="center">
+                        <FormGroup style={{textAlign: "center"}}>
                             <Dropdown color="success" isOpen={this.state.dropdownOpen} toggle={this.toggleDropdown}>
                                 <DropdownToggle caret color="success">
                                     {this.state.dropDownValue}
